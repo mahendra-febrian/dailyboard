@@ -20,6 +20,8 @@ function toggleSelesai(daftarTugas, id) {
 }
 
 export function renderTugas(list, daftarTugas, filter) {
+  list.innerHTML = "";
+  
   const tugasTersaring = daftarTugas.filter((t) => {
     if (filter === "selesai") return t.selesai;
     if (filter === "belum") return !t.selesai;
