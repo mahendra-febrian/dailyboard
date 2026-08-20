@@ -1,7 +1,7 @@
 // Minggu 16
 // Memecah kode menjadi modul terpisah menggunakan ES Modules
 // tugas.js
-import { simpanKeStorage } from "./storage.js";
+import { simpanKeStorage, muatDariStorage } from "./storage.js";
 import { validasiInput, debounce } from "./api.js";
 
 export function tambahTugas(daftarTugas, nama, list, filter) {
@@ -21,6 +21,7 @@ function toggleSelesai(daftarTugas, id, list, filter) {
 }
 
 export function renderTugas(list, daftarTugas, filter) {
+  daftarTugas = muatDariStorage();
   list.innerHTML = "";
 
   const tugasTersaring = daftarTugas.filter((t) => {
