@@ -1,6 +1,6 @@
-async function ambilKutipan(kutipanHarian) {
+export async function ambilKutipan(kutipanHarian) {
   try {
-    kutipanHarian.textContent = "Memuat";
+    kutipanHarian.textContent = "Memuat...";
     const res = await fetch("https://dummyjson.com/quotes/random");
     const data = await res.json();
     kutipanHarian.textContent = data.quote;
@@ -15,7 +15,7 @@ export async function ambilCuaca(kota, infoCuaca) {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${kota}&appid=${apiKey}&units=metric`;
 
   try {
-    infoCuaca.textContent = "Memuat";
+    infoCuaca.textContent = "Memuat...";
     const res = await fetch(url);
     if (!res.ok) throw new Error("Kota tidak ditemukan");
     const data = await res.json();

@@ -4,7 +4,7 @@
 import { tambahTugas, renderTugas, cariTugasDebounce } from "./tugas.js";
 import { tambahCatatan, renderCatatan } from "./catatan.js";
 import { muatDariStorage, muatCatatanDariStorage } from "./storage.js";
-import { ambilCuaca, muatSemuaWidget } from "./api.js";
+import { ambilKutipan, ambilCuaca, muatSemuaWidget } from "./api.js";
 
 console.log("Dailyboard siap dijalankan!");
 
@@ -30,7 +30,6 @@ app.appendChild(cuaca);
 // Minggu 3
 const tombol = document.createElement("button");
 tombol.textContent = "Klik saya";
-app.appendChild(tombol);
 
 tombol.addEventListener("click", () => {
   alert("Tombol berhasil diklik!");
@@ -38,7 +37,9 @@ tombol.addEventListener("click", () => {
 
 // Event pada input
 const input = document.createElement("input");
-app.appendChild(input);
+
+// Opt
+input.setAttribute("placeholder", "Tulis apa saja...");
 
 input.addEventListener("input", (e) => {
   console.log("Nilai input: ", e.target.value);
@@ -75,20 +76,17 @@ tugas.appendChild(semua);
 
 selesai.addEventListener("click", (e) => {
   e.preventDefault();
-  filter = "selesai";
-  renderTugas(list, daftarTugas, filter);
+  renderTugas(list, daftarTugas, "selesai");
 });
 
 belum.addEventListener("click", (e) => {
   e.preventDefault();
-  filter = "belum";
-  renderTugas(list, daftarTugas, filter);
+  renderTugas(list, daftarTugas, "belum");
 });
 
 semua.addEventListener("click", (e) => {
   e.preventDefault();
-  filter = "";
-  renderTugas(list, daftarTugas, filter);
+  renderTugas(list, daftarTugas, "");
 });
 
 const formTugas = document.getElementById("form-tugas");
@@ -101,7 +99,8 @@ tugas.appendChild(formTugas);
 tombolTambahTugas.addEventListener("click", (e) => {
   e.preventDefault();
   console.log(namaTugas.value);
-  tambahTugas(daftarTugas, namaTugas.value, list, filter);
+  tambahTugas(daftarTugas, namaTugas.value, list, "");
+  namaTugas.value = "";
 });
 
 // Minggu 4
@@ -114,12 +113,9 @@ let daftarTugas = [
 const list = document.getElementById("daftar-tugas");
 tugas.appendChild(list);
 
-// Tugas Minggu 6
-let filter;
-
 // Tugas Minggu 7
 daftarTugas = muatDariStorage();
-renderTugas(list, daftarTugas, filter);
+renderTugas(list, daftarTugas, "");
 
 // Minggu 8
 let daftarCatatan = [];
@@ -134,6 +130,7 @@ const tombolTambahCatatan = document.getElementById("tambah-catatan");
 tombolTambahCatatan.addEventListener("click", (e) => {
   e.preventDefault();
   tambahCatatan(daftarCatatan, isiCatatan.value, container);
+  isiCatatan.value = "";
 });
 
 catatan.appendChild(formCatatan);
@@ -145,13 +142,21 @@ renderCatatan(container, daftarCatatan);
 // Minggu 10
 // Tugas Minggu 10
 const kutipan = document.createElement("section");
+const judulKutipan = document.createElement("h2");
 const kutipanHarian = document.getElementById("kutipan-harian");
+const tombolRefreshKutipan = document.createElement("button");
 
-kutipanHarian.addEventListener("dblclick", () => {
-  
-})
+judulKutipan.textContent = "Kutipan";
+kutipanHarian.addEventListener("dblclick", () => {});
+tombolRefreshKutipan.textContent = "Ambil Kutipan Baru";
 
+tombolRefreshKutipan.addEventListener("click", () => {
+  ambilKutipan(kutipanHarian);
+});
+
+kutipan.appendChild(judulKutipan);
 kutipan.appendChild(kutipanHarian);
+kutipan.appendChild(tombolRefreshKutipan);
 app.appendChild(kutipan);
 
 // Minggu 11
@@ -168,6 +173,7 @@ const cariKota = document.getElementById("cari-kota");
 cariKota.addEventListener("click", (e) => {
   e.preventDefault();
   ambilCuaca(namaKota.value, infoCuaca);
+  namaKota.value = "";
 });
 
 // Terapkan tema
@@ -191,5 +197,8 @@ toggleTema.addEventListener("click", () => {
 // Pencarian tugas
 document.getElementById("cari-tugas").addEventListener("input", (e) => {
   const kataKunci = e.target.value.toLowerCase();
-  cariTugasDebounce(list, daftarTugas, kataKunci, filter);
+  cariTugasDebounce(list, daftarTugas, kataKunci, "");
 });
+
+app.appendChild(input);
+app.appendChild(tombol);

@@ -1,18 +1,186 @@
 * {
   box-sizing: border-box;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
-/* Tugas Minggu 1 */
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  color: black;
+}
+
 header,
 footer {
-  background-color: #134ecd;
-  color: white;
+  padding: 1.25rem 1.5rem;
   text-align: center;
+  background-color: #2563eb;
+  color: #fff;
+}
+
+header h1 {
+  margin: 0.25rem 0;
 }
 
 #status {
-  background-color: orange;
+  color: black;
+  margin: 0 0 0.5rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.875rem;
+  background-color: #fbbf24;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+#app {
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+#app > h2 {
+  grid-column: 1 / -1;
+  margin: 0;
+  text-align: center;
+}
+
+#app > section {
+  border: 1px solid #2563eb;
+  padding: 1.25rem;
+}
+
+#app > section h2 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  padding-bottom: 0.5rem;
+}
+
+form {
+  margin-bottom: 1rem;
+}
+
+label {
+  font-size: 0.9rem;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #2563eb;
+  font: inherit;
+}
+
+button {
+  margin-top: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  border: none;
+  font: inherit;
+  background-color: #2563eb;
+  color: #fff;
+}
+
+#selesai,
+#belum,
+#semua {
+  margin-right: 0.35rem;
+  margin-bottom: 0.75rem;
+}
+
+#daftar-tugas {
+  margin: 0;
+  padding: 0;
+}
+
+.tugas-item {
+  list-style: none;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #2563eb;
+}
+
+.tugas-item button {
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+  padding: 0.3rem 0.6rem;
+}
+
+#daftar-catatan {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.catatan-item {
+  padding: 0.85rem;
+  border: 1px solid #2563eb;
+}
+
+.catatan-item p {
+  margin: 0 0 0.35rem;
+  font-size: 0.9rem;
+}
+
+.catatan-item small {
+  font-size: 0.75rem;
+}
+
+.catatan-item button {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+#kutipan-harian {
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid #2563eb;
+}
+
+#info-cuaca {
+  margin-top: 0.75rem;
+  padding: 0.85rem;
+  border: 1px solid #2563eb;
+}
+
+#info-cuaca p {
+  margin: 0.25rem 0;
+}
+
+body.dark-mode {
+  color: #e5e7eb;
+  background-color: #111827;
+}
+
+body.dark-mode * {
+  background-color: #111827;
+}
+
+body.dark-mode header,
+body.dark-mode footer,
+body.dark-mode h1,
+body.dark-mode button,
+body.dark-mode footer p {
+  background-color: #1e3a8a;
+}
+
+.selesai {
+  text-decoration: line-through;
+}
+
+li {
+  margin-bottom: 0.5rem;
 }
 
 h1,
@@ -24,73 +192,16 @@ h6 {
   text-align: center;
 }
 
-section {
-  border: 1px solid black;
-  height: 25%;
-  width: 50%;
-  display: inline-block;
-  margin: .25rem;
-  padding: 1rem;
-}
-
-button {
-  margin: 0.25em;
-}
-
-input,
-textarea {
-  padding: 0.25rem;
-  width: 100%;
-}
-
-#app {
-  margin-left: auto;
-  margin-right: auto;
-
-  /* Tugas Minggu 10 */
-  position: relative;
-}
-
-/* Tugas Minggu 8 */
-div {
-  border: 1px solid #4f4f4f;
-  display: inline-block;
-  margin: 0.25em;
-  width: 30%;
-  padding: 0.5em;
-}
-
-#kutipan-harian {
-  background-color: #e5e5e5;
-  border: 1px solid #4f4f4f;
-  bottom: 5px;
-  box-shadow: 0 0;
-  max-width: 50%;
-  padding: 0.5rem;
-  position: fixed;
-  right: 5px;
-}
-
-/* Tugas Minggu 14 */
-.dark-mode {
-  background-color: #4c4c4c;
-  color: white;
-}
-
-/* Opt */
-.selesai {
-  text-decoration: line-through;
-}
-
-#info-cuaca {
-  border: 1px solid #4f4f4f;
-  margin: 0.25em;
-  padding: 0.5em;
-}
-
-/* Tugas Minggu 16 */
-@media screen and (max-width: 768px) {
+@media (min-width: 640px) {
   #app {
-    max-width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    padding-top: 0;
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  #app {
+    grid-template-columns: repeat(4, 1fr);
   }
 }

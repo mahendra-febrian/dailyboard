@@ -12,16 +12,17 @@ export function tambahTugas(daftarTugas, nama, list, filter) {
   }
 }
 
-function toggleSelesai(daftarTugas, id) {
+function toggleSelesai(daftarTugas, id, list, filter) {
   daftarTugas = daftarTugas.map((t) =>
     t.id === id ? { ...t, selesai: !t.selesai } : t,
   );
   simpanKeStorage(daftarTugas);
+  renderTugas(list, daftarTugas, filter);
 }
 
 export function renderTugas(list, daftarTugas, filter) {
   list.innerHTML = "";
-  
+
   const tugasTersaring = daftarTugas.filter((t) => {
     if (filter === "selesai") return t.selesai;
     if (filter === "belum") return !t.selesai;
@@ -31,7 +32,12 @@ export function renderTugas(list, daftarTugas, filter) {
   tugasTersaring.forEach((tugas) => {
     const li = document.createElement("li");
     li.textContent = tugas.nama;
-    li.className = "tugas-item";
+    li.classList.add("tugas-item");
+
+    if (tugas.selesai) {
+      li.classList.add("selesai");
+    }
+
     li.dataset.id = tugas.id;
 
     li.addEventListener("dblclick", () => {
@@ -63,7 +69,7 @@ export function renderTugas(list, daftarTugas, filter) {
     });
     tombolSelesai.addEventListener("click", (e) => {
       e.preventDefault();
-      toggleSelesai(daftarTugas, tugas.id);
+      toggleSelesai(daftarTugas, tugas.id, list, filter);
     });
 
     li.appendChild(tombolHapus);
