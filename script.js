@@ -147,6 +147,10 @@ renderCatatan(container, daftarCatatan);
 const kutipan = document.createElement("section");
 const kutipanHarian = document.getElementById("kutipan-harian");
 
+kutipanHarian.addEventListener("dblclick", () => {
+  
+})
+
 kutipan.appendChild(kutipanHarian);
 app.appendChild(kutipan);
 

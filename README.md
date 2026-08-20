@@ -18,12 +18,12 @@
 
 ```
 dailyboard\
-index.html
-style.css
-script.js
-tugas.js
-catatan.js
-storage.js
-api.js
+    index.html
+    style.css
+    script.js
+    tugas.js
+    catatan.js
+    storage.js
+    api.js
 ```
 
