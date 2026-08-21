@@ -81,6 +81,66 @@ export function renderTugas(list, daftarTugas, filter) {
   aktifkanDragDrop(daftarTugas, list, filter);
 }
 
+export function renderTugasKustom(list, daftarTugas, filter) {
+  list.innerHTML = "";
+
+  const tugasTersaring = daftarTugas.filter((t) => {
+    if (filter === "selesai") return t.selesai;
+    if (filter === "belum") return !t.selesai;
+    return true;
+  });
+
+  tugasTersaring.forEach((tugas) => {
+    const li = document.createElement("li");
+    li.textContent = tugas.nama;
+    li.classList.add("tugas-item");
+
+    if (tugas.selesai) {
+      li.classList.add("selesai");
+    }
+
+    li.dataset.id = tugas.id;
+
+    li.addEventListener("dblclick", () => {
+      const edit = document.createElement("input");
+      const selesaiEdit = document.createElement("button");
+
+      selesaiEdit.textContent = "Selesai";
+
+      selesaiEdit.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (validasiInput(edit.value)) {
+          editTugas(daftarTugas, tugas.id, edit.value, list, filter);
+        }
+      });
+
+      li.appendChild(edit);
+      li.appendChild(selesaiEdit);
+    });
+
+    const tombolHapus = document.createElement("button");
+    const tombolSelesai = document.createElement("button");
+
+    tombolHapus.textContent = "Hapus";
+    tombolSelesai.textContent = "Selesaikan";
+
+    tombolHapus.addEventListener("click", (e) => {
+      e.preventDefault();
+      hapusTugas(daftarTugas, tugas.id, list, filter);
+    });
+    tombolSelesai.addEventListener("click", (e) => {
+      e.preventDefault();
+      toggleSelesai(daftarTugas, tugas.id, list, filter);
+    });
+
+    li.appendChild(tombolHapus);
+    li.appendChild(tombolSelesai);
+    list.appendChild(li);
+  });
+
+  aktifkanDragDrop(daftarTugas, list, filter);
+}
+
 function hapusTugas(daftarTugas, id, list, filter) {
   daftarTugas = daftarTugas.filter((t) => t.id !== id);
   simpanKeStorage(daftarTugas);
@@ -137,7 +197,7 @@ export const cariTugasDebounce = debounce(
       t.nama.toLowerCase().includes(kataKunci.toLowerCase()),
     );
 
-    renderTugas(list, hasil, filter);
+    renderTugasKustom(list, hasil, filter);
   },
   300,
 );
