@@ -8,7 +8,7 @@ export function tambahTugas(daftarTugas, nama, list, filter) {
   if (validasiInput(nama)) {
     daftarTugas.push({ id: Date.now(), nama, selesai: false });
     simpanKeStorage(daftarTugas);
-    renderTugas(list, daftarTugas, filter);
+    renderTugas(list, filter);
   }
 }
 
@@ -17,11 +17,11 @@ function toggleSelesai(daftarTugas, id, list, filter) {
     t.id === id ? { ...t, selesai: !t.selesai } : t,
   );
   simpanKeStorage(daftarTugas);
-  renderTugas(list, daftarTugas, filter);
+  renderTugas(list, filter);
 }
 
-export function renderTugas(list, daftarTugas, filter) {
-  daftarTugas = muatDariStorage();
+export function renderTugas(list, filter) {
+  const daftarTugas = muatDariStorage();
   list.innerHTML = "";
 
   const tugasTersaring = daftarTugas.filter((t) => {
@@ -144,7 +144,7 @@ export function renderTugasKustom(list, daftarTugas, filter) {
 function hapusTugas(daftarTugas, id, list, filter) {
   daftarTugas = daftarTugas.filter((t) => t.id !== id);
   simpanKeStorage(daftarTugas);
-  renderTugas(list, daftarTugas, filter);
+  renderTugas(list, filter);
 }
 
 function editTugas(daftarTugas, id, namaBaru, list, filter) {
@@ -152,7 +152,7 @@ function editTugas(daftarTugas, id, namaBaru, list, filter) {
     t.id === id ? { ...t, nama: namaBaru } : t,
   );
   simpanKeStorage(daftarTugas);
-  renderTugas(list, daftarTugas, filter);
+  renderTugas(list, filter);
 }
 
 function aktifkanDragDrop(daftarTugas, list, filter) {
@@ -166,7 +166,7 @@ function aktifkanDragDrop(daftarTugas, list, filter) {
   });
 
   list.addEventListener("dragover", (e) => {
-    e.preventDefault()
+    e.preventDefault();
   });
 
   list.addEventListener("drop", (e) => {
@@ -187,7 +187,7 @@ function aktifkanDragDrop(daftarTugas, list, filter) {
         daftarTugas.splice(indeksTarget, 0, draggedItem);
 
         simpanKeStorage(daftarTugas);
-        renderTugas(list, daftarTugas, filter);
+        renderTugas(list, filter);
       }
     }
   });
