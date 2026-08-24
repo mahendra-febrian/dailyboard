@@ -158,6 +158,10 @@ body.dark-mode textarea {
   background-color: #111827;
 }
 
+#body.dark-mode section {
+  border: 1px solid #1e3a8a;
+}
+
 body.dark-mode * {
   background-color: #111827;
 }
