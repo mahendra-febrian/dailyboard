@@ -158,7 +158,9 @@ button {
   margin: 0.25rem 0;
 }
 
-body.dark-mode {
+body.dark-mode,
+body.dark-mode input,
+body.dark-mode textarea {
   color: #e5e7eb;
   background-color: #111827;
 }
