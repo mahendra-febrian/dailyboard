@@ -165,24 +165,26 @@ function aktifkanDragDrop(daftarTugas, list, filter) {
     });
   });
 
-  list.addEventListener("dragover", (e) => e.preventDefault());
+  list.addEventListener("dragover", (e) => {
+    e.preventDefault()
+  });
 
   list.addEventListener("drop", (e) => {
     e.preventDefault();
 
-    const draggedId = Number(e.dataTransfer.getData("text/plain"));
-    const targetElement = e.target.closest(".tugas-item");
+    const idDrag = Number(e.dataTransfer.getData("text/plain"));
+    const tugasTarget = e.target.closest(".tugas-item");
 
-    if (draggedId && targetElement) {
-      const targetId = Number(targetElement.dataset.id);
+    if (idDrag && tugasTarget) {
+      const idTarget = Number(tugasTarget.dataset.id);
 
-      if (draggedId !== targetId) {
-        const draggedIndex = daftarTugas.findIndex((t) => t.id === draggedId);
-        const targetIndex = daftarTugas.findIndex((t) => t.id === targetId);
+      if (idDrag !== idTarget) {
+        const indeksDrag = daftarTugas.findIndex((t) => t.id === idDrag);
+        const indeksTarget = daftarTugas.findIndex((t) => t.id === idTarget);
 
-        const [draggedItem] = daftarTugas.splice(draggedIndex, 1);
+        const [draggedItem] = daftarTugas.splice(indeksDrag, 1);
 
-        daftarTugas.splice(targetIndex, 0, draggedItem);
+        daftarTugas.splice(indeksTarget, 0, draggedItem);
 
         simpanKeStorage(daftarTugas);
         renderTugas(list, daftarTugas, filter);
